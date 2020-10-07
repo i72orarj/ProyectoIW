@@ -1,0 +1,55 @@
+@media all and (min-width: 480px) {
+  /*pagina contacto*/
+#primario{
+  width: 500px;
+  float: left;
+}
+/*links*/
+#secundario{
+  width: 40%;
+  float: left;
+}
+}
+/*pagina noticias*/
+#galeria li {
+  /*%15 margin 85% elementos / 3 = 28.333*/
+  width: 28.333%
+
+/*esto nos sirve para cuando no queda bien una foto*/
+}
+#galeria li:nth-child(4n) {}
+  clear:left;
+  /*pagina noticias*/
+
+@media all and (min-width: 660px) {
+
+/*pagina noticias*/
+nav{
+  background: none;
+  float: right;
+  font-size: 1.125em;
+  margin-right: 5%;
+  text-align: right;
+  width: 45%;
+
+}
+#logo{
+  float: left;
+  margin-left: 5%;
+  text-align: left;
+  width: 45%;
+
+}
+h1{
+  font-size: 2.5em;
+
+}
+h2{
+  font-size: 0.825em;
+  margin-bottom: 20px;
+}
+header{
+  border-bottom: 5px solid #fff;
+  margin-bottom: 60px;
+}
+}

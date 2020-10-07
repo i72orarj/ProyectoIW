@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static%}
+    <link rel="shortcut icon" href="{% static 'img/logo.png' %}" />
+    <!-- icono de la empresa -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>GAMERUCOS</title>
+    <!--<link rel="stylesheet" href="css/normalize.css" /-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Patua+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    {% load static%}
+    <!-- <link rel="stylesheet" type="text/css" href="css/main.css" /> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/principal.css' %}" />
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}" />-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="shadow-lg p-3 mb-5 bg-white rounded">
+      <div class="row justify-content-center">
+        <a href="{% url 'home' %}" id="Logo">
+          <img  class="rounded mx-auto d-block" src="{% static 'img/logoPrincipal2.png' %}" alt="GAMERUCOS"/>
+        </a>
+      </div>
+        <!-- {% load static%} -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <ul class="navbar-nav navbar-collapse mr-auto">
+            <li class="nav-item">
+              <a href="{% url 'home' %}" class="nav-link">Inicio aqui</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'buscar' %}" class="nav-link">Buscar juego</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'recomendaciones' %}" class="nav-link">Recomendaciones</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'acerca' %}" class="nav-link">Acerca de</a>
+            </li>
+            {% if logueado == 1 %}
+            <li class="nav-item active">
+              <a href="{% url 'miPerfil' %}" class="nav-link">Mi perfil</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'logout' %}" class="nav-link">Cerrar sesión</a>
+            </li>
+            {% endif %}
+            {% if logueado == 0 %}
+            <li class="nav-item">
+              <a href="{% url 'login' %}" class="nav-link">Iniciar sesión</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'registro' %}" class="nav-link">Registrarse</a>
+            </li>
+            {% endif %}          
+          </ul>
+        </nav>
+    </div>
+    </div>
+    <div class="container">
+      <div class="shadow-lg p-4 mb-7 bg-white rounded">
+      <br><br>
+      <div class="row justify-content-center">
+        <span class="border">
+        <div class="col">
+            <div class="row justify-content-center">
+                <h1><b>Perfil de {{ usuario.username }}</b></h1>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <span><b>Nombre</b>: {{ usuario.first_name }} {{ usuarios.last_name }}</span>
+                </div>
+                <div class="col">
+                    <span><b>Correo</b>: {{ usuario.email }}</span>
+                </div>
+            </div>
+        </div>
+        </span>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col">
+          <h3><b>Criticas de {{ usuario.username }}</b></h3>
+        </div>
+      </div>
+      <hr>
+      {% for critica in criticas %}
+      <!-- aqui empieza la primera critica  -->
+      <div class="container">
+        <div class="row">
+            <div class="col-xl-5">
+                <b>Videojuego: </b>{{critica.videojuego.nombre}}
+            </div>
+            <div class="col-xl-5">
+                <b>Autor: </b>{{critica.autor.username}}
+            </div>
+            <div class="col-xl-2">
+             <b>Nota: </b>{{critica.nota}}
+            </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            {{critica.comentario}}
+          </div>
+        </div>
+      </div>
+      <hr>
+      {% endfor %}
+      <!-- aqui termina una critica -->
+      </div>
+      </div>
+      <footer class="footer mt-auto py-3">
+        <div class="container">
+          <div class="row justify-content-center">
+            {% load static%}
+            <a href="https://www.facebook.com/Gameruco-111156920561333/"><img src="{% static 'img/facebook.png' %}" alt="facebook logo" class="social-icon"  width="50em" height="50em"/></a>
+            <!-- <a href="https://www.facebook.com/Gameruco-111156920561333/"><img src="img/facebook.png" alt="facebook logo" class="social-icon"  width="50em" height="50em"/></a> -->
+            {% load static%}
+            <a href="https://twitter.com/gamerucos"><img src="{% static 'img/twitter.png' %}" alt="logo twitter" class="social-icon"></a>
+            <!-- <a href="https://twitter.com/gamerucos"><img src="img/twitter.png" alt="logo twitter" class="social-icon"></a> -->
+          </div>
+          <div class="row justify-content-center">
+            <p>&copy; 2020 GAM3RUCO$</p>
+          </div>
+        </div>
+      </footer>
+  </body>
+</html>

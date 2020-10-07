@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static%}
+    <link rel="shortcut icon" href="{% static 'img/logo.png'%}" />
+    <!-- icono de la empresa -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANTZ</title>
+    <!--<link rel="stylesheet" href="css/normalize.css" /-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Patua+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+    {% load static%}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
+  </head>
+  <body>
+    <header>
+      <a href="{% url 'index' %}" id="Logo">
+        {% load static%}
+      <h1 align="center"><img src="{% static 'img/logoPrincipal.png' %}" alt="logotibal" width="300em" height="250"/></h1>
+      <h2 align="center">Tu pagina de videojuegos</h2>
+      </a>
+      <nav class="menuPrincipal">
+        <ul>
+          <li><a href="{% url 'index' %}" class="selected" >Inicio aqui</a></li>
+          <li><a href="categorias.html">Categorias</a></li>
+          <li><a href="buscarJuego.html">Buscar juego</a></li>
+          <li><a href="perfilUsuario.html">Mi perfil</a></li>
+          <li><a href="contacto.html">Recomendaciones</a></li>
+          <li><a href="acerca.html">Acerca de</a></li>
+        </ul>
+      </nav>
+    </header>
+  <div align="center">
+    {% load static%}
+  <img src="{% static 'img/bienvenida.gif'%}" alt="Bienvenida"></div>
+   <div align="left" class="introduccion" >  <h3>Bienvenidos: </h3>
+  <p>Antz,somos una empresa lider en el mercado 100% oaxaqueña, que se creo en 2016 con un respaldo de 20 años de prestigio y experiencia.</p>
+    <p>El objetivo principal es ofrecer a nuestros clientes la mejor solucion de tecnologia como:</p>
+      <p>Mantnimiento,venta,renta,asesoria,capacitacion y diseño de equipo de computo y sus perifericos</p>
+<p>Servicio de instalaciones: Electricas, voz, datos y estrcuturas</p>
+<p>Venta de consumibles: cartuchos, cilindros fotoconductores, cintas, discos, papel, toner, de toda la gama de marcas existentes</p>
+</div>
+<div align="center"><h3>Vision</h3></div>
+{% load static%}
+<div align="center"><img src="{% static 'img/antz.gif'%}" alt="Bienvenida2"></div>
+<p>Ser una de las empresas que brinden soluciones en el area de mantenimiento, venta instalación y renta de equipo de computo de las mejores marcas a nivel mundial en el siglo XXI
+</p>
+<p>consolidarnos dentro del mercado de soluciones como una de las mejores empresas en cuanto al servicio y mantenimiento de equipo de computo a nivel nacional
+</p>
+<p>mantener relaciones de negocios atractivas y duraderas para desarrollar personas de excelencia y maximizar los resultados mediante el trabajo en equipo
+</p>
+<div align="center"><h3>Mision</h3></div>
+<p>Proporcionar un servicio de excelencia en la creacion de nuevas expectativas para el ramo de la computacion, ofreciendo de esta manera productos y funciones a través del conocimiento de las necesidades y requerimientos del cliente, con el objetivo primordial de lograr una completa satisfacion del mismo, basados en una filosofia de calidad, servicio y renovacion continua
+
+Dar servicio al sector publico y Sector privado
+</p>
+  </div>
+    <footer>
+      {% load static%}
+      <a href="https://www.facebook.com/ANTZ-302195096882196/"><img src="{% static 'img/facebook.png' %}" alt="facebook logo" class="social-icon"  width="50em" height="50em"/></a>
+      {% load static%}
+      <a href="https://twitter.com/antztech05"><img src="{% static 'img/twitter.png' %}" alt="logo twitter" class="social-icon"></a>
+      {% load static%}
+      <a href="https://www.youtube.com/channel/UCYazQUFTu6L__k9hEuUK5QA"><img src="{% static 'img/mail.png' %}" alt="gmaillogo"  class="social-icon"></a>
+    <p>&copy; 2017 ANTZ</p>
+    </footer>
+  </body>
+</html>

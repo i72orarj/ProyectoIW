@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- {% load static%} -->
+    <link rel="shortcut icon" href="img/logo.png" />
+    <!-- icono de la empresa -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ANTZ</title>
+    <!--<link rel="stylesheet" href="css/normalize.css" /-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Patua+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- {% load static%} -->
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="css/principal.css" />
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}" />-->
+  </head>
+  <body>
+    <header>
+      <a href="index.html" id="Logo">
+        <!-- {% load static%} -->
+      <h1 align="center"><img src="img/logoPrincipal.png" alt="GAMERUCOS" width="300em" height="250"/></h1>
+      <h2 align="center">Tu pagina de videojuegos</h2>
+      </a>
+      <nav class="menuPrincipal">
+        <ul>
+          <li><a href="index.html" class="selected" >Inicio aqui</a></li>
+          <li><a href="categorias.html">Categorias</a></li>
+          <li><a href="buscarJuego.html">Buscar juego</a></li>
+          <li><a href="perfilUsuario.html">Mi perfil</a></li>
+          <li><a href="contacto.html">Recomendaciones</a></li>
+          <li><a href="acerca.html">Acerca de</a></li>
+        </ul>
+      </nav>
+      <div class="container" style="background-color:#212529;">
+      <div class="row justify-content-center" >
+        <div class="col">
+          <a class="enlacesMenu" href="index.html" class="selected" >Inicio aqui</a>
+        </div>
+        <div class="col">
+          <a class="enlacesMenu" href="categorias.html">Categorias</a>
+        </div>
+        <div class="col">
+          <a class="enlacesMenu" href="buscarJuego.html">Buscar juego</a>
+        </div>
+        <div class="col">
+          <a class="enlacesMenu" href="perfilUsuario.html">Mi perfil</a>
+        </div>
+        <div class="col">
+          <a class="enlacesMenu" href="contacto.html">Recomendaciones</a>
+        </div>
+        <div class="col">
+          <a class="enlacesMenu" href="acerca.html">Acerca de</a>
+        </div>
+      </div>
+      </div>
+    </header>
+    <hr>
+    <div class="container">
+      <div class="row">
+        <h3>Introduzca los valores: </h3>
+      </div>
+        <div class="">
+            <form action="index.html" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                  <input type="text" class="col-12" name="user" placeholder="Introduzca su nombre de usuario">
+                </div>
+                <br>
+                <div class="row">
+                  <input type="password" class="col-4" name="password" placeholder="Introduzca su contraseña">
+                </div>
+                <br>
+                <div class="row">
+                  <input type="submit" class="col-4" value="Iniciar sesion">
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer class="footerRRSS">
+      {% load static%}
+      <a href="https://www.facebook.com/ANTZ-302195096882196/"><img src="{% static 'img/facebook.png' %}" alt="facebook logo" class="social-icon"  width="50em" height="50em"/></a>
+      {% load static%}
+      <a href="https://twitter.com/antztech05"><img src="{% static 'img/twitter.png' %}" alt="logo twitter" class="social-icon"></a>
+      {% load static%}
+      <a href="https://www.youtube.com/channel/UCYazQUFTu6L__k9hEuUK5QA"><img src="{% static 'img/mail.png' %}" alt="gmaillogo"  class="social-icon"></a>
+    <p>&copy; 2017 ANTZ</p>
+    </footer>
+  </body>
+</html>

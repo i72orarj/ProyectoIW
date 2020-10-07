@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static%}
+    <link rel="shortcut icon" href="{% static 'img/logo.png' %}" />
+    <!-- icono de la empresa -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>GAMERUCOS</title>
+    <!--<link rel="stylesheet" href="css/normalize.css" /-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Patua+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    {% load static%}
+    <!-- <link rel="stylesheet" type="text/css" href="css/main.css" /> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/principal.css' %}" />
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}" />-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="shadow-lg p-3 mb-5 bg-white rounded">
+      <div class="row justify-content-center">
+        <a href="{% url 'home' %}" id="Logo">
+          <img  class="rounded mx-auto d-block" src="{% static 'img/logoPrincipal2.png' %}" alt="GAMERUCOS"/>
+        </a>
+      </div>
+        <!-- {% load static%} -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <ul class="navbar-nav navbar-collapse mr-auto">
+            <li class="nav-item">
+              <a href="{% url 'home' %}" class="nav-link">Inicio aqui</a>
+            </li>
+            <li class="nav-item active">
+              <a href="{% url 'buscar' %}" class="nav-link">Buscar juego</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'recomendaciones' %}" class="nav-link">Recomendaciones</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'acerca' %}" class="nav-link">Acerca de</a>
+            </li>
+            {% if logueado == 1 %}
+            <li class="nav-item">
+              <a href="{% url 'miPerfil' %}" class="nav-link">Mi perfil</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'logout' %}" class="nav-link">Cerrar sesión</a>
+            </li>
+            {% endif %}
+            {% if logueado == 0 %}
+            <li class="nav-item">
+              <a href="{% url 'login' %}" class="nav-link">Iniciar sesión</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'registro' %}" class="nav-link">Registrarse</a>
+            </li>
+            {% endif %}          
+          </ul>
+        </nav>
+    </div>
+    </div>
+    <div class="container">
+      <div class="shadow-lg p-4 mb-7 bg-white rounded">
+      <br><br>
+      <div class="row justify-content-center">
+        <div class="col-6">
+          <div class="row justify-content-center">
+            <h1><b>{{videojuego.nombre}}</b></h1>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col">
+              <span><b>Descripción</b>: {{videojuego.descripcion}}</span>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col">
+              <span><b>Año de salida</b>:{{videojuego.fechaLanzamiento}}</span>
+            </div>
+            <div class="col">
+              <span><b>Categoría</b>: {{videojuego.categoria}}</span>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col">
+              <span><b>Número de jugadores</b>: {{videojuego.numeroJugadores}}</span>
+            </div>
+            <div class="col">
+              <span><b>Nota media</b>: {{notaMediaVideojuego}}</span>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col">
+              <b>Enlaces de compra o descarga:</b>
+            </div>
+          </div>
+          {% for sitio in sitios %}
+          <div class="row">
+            <div class="col">
+              <li><a href="{{ sitio.enlace }}">{{sitio.tienda}}</a></li>
+            </div>
+          </div>
+          {% endfor %}
+          <br>
+          {% for trailer in trailers %}
+          <div class="row">
+            <div class="col">
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="{{trailer.enlace}}" width="25%"  allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="col-6">
+          {% load static %}
+          <img class="rounded mx-auto d-block" src="{% static videojuego.portada %}" alt="{{videojuego.nombre}}" width="75%"/>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col">
+          {% url 'comentar' videojuego.id as comentarVideojuego %}
+          <a href="{{comentarVideojuego}}"></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h3><b>Criticas</b></h3>
+        </div>
+      </div>
+      <hr>
+      {% for critica in criticas %}
+      <!-- aqui empieza la primera critica  -->
+      <div class="container">
+        <div class="row">
+          <div class="col-8">
+            {% url 'perfil' critica.autor.id as perfilAutor %}
+            <a href="{{perfilAutor}}">
+              <b>Autor: </b>{{critica.autor}}
+            </a>
+          </div>
+          <div class="col-2">
+            <b>Nota: </b>{{critica.nota}}
+          </div>
+          <div class="col-2">
+            <div class="btn-group">
+              {% if critica.id in criticasValoradas %}
+                  <button type="button" class="btn btn-primary" id="buttonResta{{critica.id}}" disabled>-</button>
+                  {% for id, puntuacion in puntuaciones %}
+                    {% if id == critica.id %}
+                      <button type="button" class="btn btn-light" id="contador{{critica.id}}">{{puntuacion}}</button>
+                    {% endif %}
+                  {% endfor %}
+                  <button type="button" class="btn btn-danger" id="buttonSuma{{critica.id}}" disabled>+</button>
+                {% endif %}
+                {% if critica.id not in criticasValoradas %}
+                  {% url 'valorarNegativo' videojuego.id critica.id as valorarNegativo %}
+                  <a href="{{valorarNegativo}}">
+                    <button type="button" class="btn btn-primary" id="buttonResta{{critica.id}}">-</button>
+                  </a>
+                  {% for id, puntuacion in puntuaciones %}
+                    {% if id == critica.id %}
+                      <button type="button" class="btn btn-light" id="contador{{critica.id}}">{{puntuacion}}</button>
+                    {% endif %}
+                  {% endfor %}
+                  {% url 'valorarPositivo' videojuego.id critica.id as valorarPositivo %}
+                  <a href="{{valorarPositivo}}">
+                    <button type="button" class="btn btn-danger" id="buttonSuma{{critica.id}}">+</button>
+                  </a>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <b>Critica: </b>{{critica.comentario}}
+          </div>
+        </div>
+        <br>
+        <!-- respuetas a una critica -->
+        <div class="container">
+          <div class="row">
+            <b>Respuestas:</b>
+          </div>          
+          {% for respuesta in respuestas %}    
+          {% if respuesta.criticaRespondida.id == critica.id %}  
+          <br>
+          <div class="row">
+            <div class="col-10">
+              {% url 'perfil' respuesta.autor.id as perfilAutor %}
+              <a href="{{perfilAutor}}">
+                <b>Autor: </b>{{respuesta.autor}}
+              </a>
+            </div>  
+            <div class="col-2">
+              <div class="btn-group">
+                {% if respuesta.id in criticasValoradas %}
+                  <button type="button" class="btn btn-primary" id="buttonResta{{respuesta.id}}" disabled>-</button>
+                  {% for id, puntuacion in puntuaciones %}
+                    {% if id == respuesta.id %}
+                      <button type="button" class="btn btn-light" id="contador{{respuesta.id}}">{{puntuacion}}</button>
+                    {% endif %}
+                  {% endfor %}
+                  <button type="button" class="btn btn-danger" id="buttonSuma{{respuesta.id}}" disabled>+</button>
+                {% endif %}
+                {% if respuesta.id not in criticasValoradas %}
+                  {% url 'valorarNegativo' videojuego.id respuesta.id as valorarNegativo %}
+                  <a href="{{valorarNegativo}}">
+                    <button type="button" class="btn btn-primary" id="buttonResta{{respuesta.id}}">-</button>
+                  </a>
+                  {% for id, puntuacion in puntuaciones %}
+                    {% if id == respuesta.id %}
+                      <button type="button" class="btn btn-light" id="contador{{respuesta.id}}">{{puntuacion}}</button>
+                    {% endif %}
+                  {% endfor %}
+                  {% url 'valorarPositivo' videojuego.id respuesta.id as valorarPositivo %}
+                  <a href="{{valorarPositivo}}">
+                    <button type="button" class="btn btn-danger" id="buttonSuma{{respuesta.id}}">+</button>
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <b>Respuesta: </b>{{respuesta.comentario}}
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        <!-- acaban las respuestas -->
+        <br>
+        {% if logueado == 1 %}
+        <div class="row">
+          <div class="col">
+            {% url 'comentarCritica' videojuego.id critica.id as comentarCritica %}
+            <a href="{{ comentarCritica }}" class="btn btn-sm btn-outline-primary">Responder o puntuar critica</a>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      <hr>
+      {% endfor %}
+      <!-- aqui termina una critica -->
+      </div>
+      </div>
+      <footer class="footer mt-auto py-3">
+        <div class="container">
+          <div class="row justify-content-center">
+            {% load static%}
+            <a href="https://www.facebook.com/Gameruco-111156920561333/"><img src="{% static 'img/facebook.png' %}" alt="facebook logo" class="social-icon"  width="50em" height="50em"/></a>
+            <!-- <a href="https://www.facebook.com/Gameruco-111156920561333/"><img src="img/facebook.png" alt="facebook logo" class="social-icon"  width="50em" height="50em"/></a> -->
+            {% load static%}
+            <a href="https://twitter.com/gamerucos"><img src="{% static 'img/twitter.png' %}" alt="logo twitter" class="social-icon"></a>
+            <!-- <a href="https://twitter.com/gamerucos"><img src="img/twitter.png" alt="logo twitter" class="social-icon"></a> -->
+          </div>
+          <div class="row justify-content-center">
+            <p>&copy; 2020 GAM3RUCO$</p>
+          </div>
+        </div>
+      </footer>
+  </body>
+</html>
