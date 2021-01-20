@@ -16,6 +16,8 @@
     <!-- <link rel="stylesheet" type="text/css" href="css/main.css" /> -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/principal.css' %}" />
     <!--<link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}" />-->
+    {% load static%}
+    <script src="{% static 'js/portadaQR.js'%}"></script>
   </head>
   <body>
     <div class="container">
@@ -64,7 +66,7 @@
       <div class="shadow-lg p-4 mb-7 bg-white rounded">
       <br><br>
       <div class="row justify-content-center">
-        <div class="col-6">
+        <div class="col-lg-6 col-sm-12">
           <div class="row justify-content-center">
             <h1><b>{{videojuego.nombre}}</b></h1>
           </div>
@@ -106,19 +108,38 @@
           </div>
           {% endfor %}
           <br>
-          {% for trailer in trailers %}
           <div class="row">
+            <div class="col">
+              {% url 'trailers' videojuego.id as trailers %}
+              <a href="{{ trailers }}" class="btn btn-primary">Ver trailers del videojuego</a>
+            </div>
+          </div>
+          <br>
+          {% for trailer in trailers %}
+          <!--<div class="row">
             <div class="col">
               <div class="embed-responsive embed-responsive-16by9">
                 <iframe class="embed-responsive-item" src="{{trailer.enlace}}" width="25%"  allowfullscreen></iframe>
               </div>
             </div>
-          </div>
+          </div>-->
           {% endfor %}
         </div>
-        <div class="col-6">
+        <!--portada-->
+        <div id="imagenPortada" style="display:inline" class="col-lg-6 col-sm-12">
           {% load static %}
-          <img class="rounded mx-auto d-block" src="{% static videojuego.portada %}" alt="{{videojuego.nombre}}" width="75%"/>
+          <img onclick="cambiarPortadaQR()" class="rounded mx-auto d-block" src="{% static videojuego.portada %}" alt="{{videojuego.nombre}}" width="100%"/>
+          <div class="row justify-content-center">
+            <span>Haz click en la foto para mostrar el QR</span>
+          </div>          
+        </div>
+        <!--qr-->
+        <div id="imagenQR" style="display:none" class="col-lg-6 col-sm-12">
+          {% load static %}
+          <img onclick="cambiarQRPortada()" class="rounded mx-auto d-block" src="{% static qr %}" alt="{{videojuego.nombre}}" width="75%"/>
+          <div class="row justify-content-center">
+            <span>Haz click en la foto para mostrar la portada</span>
+          </div>          
         </div>
       </div>
       <hr>
@@ -138,16 +159,16 @@
       <!-- aqui empieza la primera critica  -->
       <div class="container">
         <div class="row">
-          <div class="col-8">
+          <div class="col-lg-8 col-sm-6">
             {% url 'perfil' critica.autor.id as perfilAutor %}
             <a href="{{perfilAutor}}">
               <b>Autor: </b>{{critica.autor}}
             </a>
           </div>
-          <div class="col-2">
+          <div class="col-lg-2 col-sm-1">
             <b>Nota: </b>{{critica.nota}}
           </div>
-          <div class="col-2">
+          <div class="col-lg-2 col-sm-2">
             <div class="btn-group">
               {% if critica.id in criticasValoradas %}
                   <button type="button" class="btn btn-primary" id="buttonResta{{critica.id}}" disabled>-</button>
@@ -191,13 +212,13 @@
           {% if respuesta.criticaRespondida.id == critica.id %}  
           <br>
           <div class="row">
-            <div class="col-10">
+            <div class="col-lg-8 col-sm-6">
               {% url 'perfil' respuesta.autor.id as perfilAutor %}
               <a href="{{perfilAutor}}">
                 <b>Autor: </b>{{respuesta.autor}}
               </a>
             </div>  
-            <div class="col-2">
+            <div class="col-lg-2 col-sm-2">
               <div class="btn-group">
                 {% if respuesta.id in criticasValoradas %}
                   <button type="button" class="btn btn-primary" id="buttonResta{{respuesta.id}}" disabled>-</button>

@@ -61,50 +61,36 @@
     </div>
     </div>
     <div class="container">
-      <div class="shadow-lg p-4 mb-7 bg-white rounded">
-      <br><br>
-      {% for videojuego in videojuegos %}
-      <div class="row justify-content-center"> 
-        <!-- <span class="border"> -->
-        <div class="col">
-          <div class="row justify-content-center">
-            <div class="col-lg-6 col-sm-12">
-              {% url 'videojuego' videojuego.id as urlVideojuego %}
-              <a href="{{ urlVideojuego }}"><h1 class="display-4"><b>{{videojuego.nombre}}</b></h1></a>
+      <div class="shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="row justify-content-center">
+          <div class="container">
+            {% for trailer in trailers %}
+            <div class="row">
+              <div class="col">
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe class="embed-responsive-item" src="{{trailer.enlace}}" width="100%"  allowfullscreen></iframe>
+                </div>
+              </div>
             </div>
-          </div>
-          <br>
-          <div class="row">
-            <div class="col">
-              <span><b>Descripción</b>: {{videojuego.descripcion}}</span>
-            </div>
-          </div>
-        </div>
-        <!-- </span> -->
-        <div class="col-lg-6 col-sm-12">
-            {% load static %}            
-          <img class="rounded mx-auto d-block" src="{% static videojuego.portada %}" alt="{{videojuego.nombre}}" width="100%"/>
+            {% endfor %}
+          </div>          
         </div>
       </div>
-      <hr>
-      {% endfor %}
-      <hr>
-      </div>
-      </div>
-      <footer class="footer mt-auto py-3">
-        <div class="container">
-          <div class="row justify-content-center">
-            {% load static%}
-            <a href="https://www.facebook.com/Gameruco-111156920561333/"><img src="{% static 'img/facebook.png' %}" alt="facebook logo" class="social-icon"  width="50em" height="50em"/></a>
-            <!-- <a href="https://www.facebook.com/Gameruco-111156920561333/"><img src="img/facebook.png" alt="facebook logo" class="social-icon"  width="50em" height="50em"/></a> -->
-            {% load static%}
-            <a href="https://twitter.com/gamerucos"><img src="{% static 'img/twitter.png' %}" alt="logo twitter" class="social-icon"></a>
-            <!-- <a href="https://twitter.com/gamerucos"><img src="img/twitter.png" alt="logo twitter" class="social-icon"></a> -->
-          </div>
-          <div class="row justify-content-center">
-            <p>&copy; 2020 GAM3RUCO$</p>
-          </div>
+    </div>
+    <footer class="footer mt-auto py-3">
+      <div class="container">
+        <div class="row justify-content-center">
+          {% load static%}
+          <a href="https://www.facebook.com/Gameruco-111156920561333/"><img src="{% static 'img/facebook.png' %}" alt="facebook logo" class="social-icon"  width="50em" height="50em"/></a>
+          <!-- <a href="https://www.facebook.com/Gameruco-111156920561333/"><img src="img/facebook.png" alt="facebook logo" class="social-icon"  width="50em" height="50em"/></a> -->
+          {% load static%}
+          <a href="https://twitter.com/gamerucos"><img src="{% static 'img/twitter.png' %}" alt="logo twitter" class="social-icon"></a>
+          <!-- <a href="https://twitter.com/gamerucos"><img src="img/twitter.png" alt="logo twitter" class="social-icon"></a> -->
         </div>
-      </footer>
+        <div class="row justify-content-center">
+          <p>&copy; 2020 GAM3RUCO$</p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from .models import Videojuego, Critica, EnlaceCompra, Trailer, Valoracion, Categoria
+import qrcode
+from PIL import Image
 
 def home(request):
     primerVideojuego = Videojuego.objects.get(nombre="Valorant")
@@ -193,19 +195,47 @@ def videojuego(request, idVideojuego):
         puntuacionesCriticas.append(valoracionCritica)
     nota = nota/numeroCriticas
     sitiosVideojuegoLeido = EnlaceCompra.objects.filter(videojuego=videojuegoLeido).all()
-    trailersVideojuegoLeido = Trailer.objects.filter(videojuego=videojuegoLeido).all()
+    #trailersVideojuegoLeido = Trailer.objects.filter(videojuego=videojuegoLeido).all()
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        box_size=10,
+        border=1,
+    )
+    urlWeb="www.gamerucos.com/videojuegos/"+str(idVideojuego)
+    qr.add_data(urlWeb)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
+    urlQR="gamerucos/static/img/qr.png"
+    img.save(urlQR)
     context = {
         'videojuego':videojuegoLeido,
         'notaMediaVideojuego': nota,
         'criticas':criticas,
         'sitios':sitiosVideojuegoLeido,
-        'trailers':trailersVideojuegoLeido,
+        #'trailers':trailersVideojuegoLeido,
         'respuestas':respuestasCriticas,
         'puntuaciones':puntuacionesCriticas,
-        'criticasValoradas':criticasValoradas
+        'criticasValoradas':criticasValoradas,
+        'qr':"img/qr.png",
     }
     context['logueado'] = 1
     return render(request, "gamerucos/videojuego.html", context)
+
+def trailers(request, idVideojuego):
+    if 'idUsuario' not in request.session:
+        context = {
+            'logueado':0,
+            'mensaje':"No está permitido visualizar el trailer de un videojuego sin estar registrado",
+        }
+        return render(request, "gamerucos/error.html", context)
+    videojuegoLeido = Videojuego.objects.get(id=idVideojuego)
+    trailersVideojuegoLeido = Trailer.objects.filter(videojuego=videojuegoLeido).all()
+    context = {
+        'trailers':trailersVideojuegoLeido,
+    }
+    context['logueado'] = 1
+    return render(request,"gamerucos/trailers.html",context)
 
 def recomendaciones(request):
     if 'idUsuario' in request.session:

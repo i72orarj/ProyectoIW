@@ -23,6 +23,7 @@ urlpatterns = [
     path('valorarPositivo/<int:idVideojuego>/<int:idCritica>', views.valorarPositivo, name='valorarPositivo'),
     path('valorarNegativo/<int:idVideojuego>/<int:idCritica>', views.valorarNegativo, name='valorarNegativo'),
     path('videojuegos/<int:idVideojuego>', views.videojuego, name='videojuego'),
+    path('videojuegos/<int:idVideojuego>/trailers', views.trailers, name='trailers'),
     path('perfil', views.miPerfil, name='miPerfil'),
     path('perfil/<int:idUsuario>', views.perfil, name='perfil'),
     path('logout', views.logout, name='logout'),
