@@ -90,7 +90,7 @@ def comentarVideojuego(request, idVideojuego):
     else:
         context = {
             'logueado':0,
-            'videojuego':videojuegoLeido,           
+            'videojuego':videojuegoLeido,
         }
     return render(request, "gamerucos/comentar.html", context)
 
@@ -202,7 +202,7 @@ def videojuego(request, idVideojuego):
         box_size=10,
         border=1,
     )
-    urlWeb="www.gamerucos.com/videojuegos/"+str(idVideojuego)
+    urlWeb="gamerucos.eu/videojuegos/"+str(idVideojuego)
     qr.add_data(urlWeb)
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white")
@@ -275,7 +275,7 @@ def miPerfil(request):
     return render(request, "gamerucos/perfil.html", context)
 
 def logout(request):
-    del request.session['idUsuario']    
+    del request.session['idUsuario']
     # logout(request)
     return redirect('home')
 
