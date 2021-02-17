@@ -161,12 +161,12 @@ def videojuegosCategoria(request, categoria):
     return render(request, "gamerucos/videojuegos.html", context)
 
 def videojuego(request, idVideojuego):
-    if 'idUsuario' not in request.session:
-        context = {
-            'logueado':0,
-            'mensaje':"No está permitido visualizar un videojuego sin estar registrado",
-        }
-        return render(request, "gamerucos/error.html", context)
+    #if 'idUsuario' not in request.session:
+    #    context = {
+    #        'logueado':0,
+    #        'mensaje':"No está permitido visualizar un videojuego sin estar registrado",
+    #    }
+    #    return render(request, "gamerucos/error.html", context)
     videojuegoLeido = Videojuego.objects.get(id=idVideojuego)
     criticasVideojuegoLeido = Critica.objects.all().filter(videojuego=videojuegoLeido)
     nota = 0
@@ -185,15 +185,19 @@ def videojuego(request, idVideojuego):
         valoraciones = Valoracion.objects.all().filter(critica=critica)
         puntuacion = 0
         for valoracion in valoraciones:
-            if valoracion.autor.id == request.session['idUsuario']:
-                criticasValoradas.append(critica.id)
+            if 'idUsuario' in request.session:
+                if valoracion.autor.id == request.session['idUsuario']:
+                    criticasValoradas.append(critica.id)
             if valoracion.valor == True:
                 puntuacion = puntuacion + 1
             else:
                 puntuacion = puntuacion - 1
         valoracionCritica = [critica.id, puntuacion]
         puntuacionesCriticas.append(valoracionCritica)
-    nota = nota/numeroCriticas
+    if numeroCriticas != 0:
+        nota = nota/numeroCriticas
+    else: 
+        nota = 0
     sitiosVideojuegoLeido = EnlaceCompra.objects.filter(videojuego=videojuegoLeido).all()
     #trailersVideojuegoLeido = Trailer.objects.filter(videojuego=videojuegoLeido).all()
     qr = qrcode.QRCode(
@@ -219,7 +223,10 @@ def videojuego(request, idVideojuego):
         'criticasValoradas':criticasValoradas,
         'qr':"img/qr.png",
     }
-    context['logueado'] = 1
+    if 'idUsuario' not in request.session:
+        context['logueado'] = 0
+    else: 
+        context['logueado'] = 1
     return render(request, "gamerucos/videojuego.html", context)
 
 def trailers(request, idVideojuego):
